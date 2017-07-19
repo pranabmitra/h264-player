@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <title>H264 Player</title>
+       
+    </head>
+    <body>
+        <video id="videoElem" autoplay></video>
+        <script src="bundle.js"></script>
+        <script>
+            
+            // setup
+            const element = document.getElementById('videoElem');
+            const converter = new VideoConverter(element, 24, 1);
+
+            // start streaming
+
+            /* Get data from node server */
+            var ws = new WebSocket("ws://localhost:9001");
+            ws.binaryType = 'arraybuffer';
+            ws.onmessage = function(evt){
+                console.log(evt.data);
+
+                if (evt.data.byteLength) {
+                    var byteData = new Uint8Array(evt.data);
+                    console.log(byteData);
+
+                    converter.appendRawData(new Uint8Array(byteData));
+                } else {
+                    console.log('no files!');
+                }
+            };
+            
+            /* Read byte stream for the whole file */
+            <!-- var url = './server/sample_video/2.h264'; -->
+            <!-- var xhr = new XMLHttpRequest(); -->
+            <!-- xhr.open('GET', url, true); -->
+            <!-- xhr.responseType = 'arraybuffer'; -->
+            <!-- xhr.send(); -->
+
+            <!-- xhr.onload = function(e) { -->
+              <!-- if (xhr.status != 200) { -->
+                <!-- alert("Unexpected status code " + xhr.status + " for " + url); -->
+                <!-- return false; -->
+              <!-- } -->
+
+              <!-- converter.appendRawData(new Uint8Array(xhr.response)); -->
+           <!-- } -->
+
+
+
+
+            /* Read file asynchronously using reader */
+            <!-- fetch('server/sample_video/1.h264').then((res) => { -->
+              <!-- if (res.body) { -->
+                <!-- const reader = res.body.getReader(); -->
+                <!-- reader.read().then(function processResult(result) { -->
+                  <!-- function decode(value) { -->
+                    <!-- converter.appendRawData(value); -->
+                  <!-- } -->
+
+                  <!-- if (result.done) { -->
+                    <!-- decode([]); -->
+                    <!-- console.log('Video Stream is done.'); -->
+                    <!-- return Promise.resolve(); -->
+                  <!-- } -->
+                  <!-- decode(result.value); -->
+
+                  <!-- return reader.read().then(processResult); -->
+                <!-- }); -->
+                <!-- converter.play(); -->
+                <!-- this.canceler = (message) => { -->
+                  <!-- reader.cancel(); -->
+                  <!-- console.log('Video Stream Request Canceled', message); -->
+                <!-- }; -->
+              <!-- } -->
+            <!-- }).catch((err) => { -->
+              <!-- console.error('Video Stream Request error', err); -->
+            <!-- }); -->
+        </script>
+    </body>
+</html>
