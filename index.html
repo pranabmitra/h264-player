@@ -26,7 +26,7 @@
                     var byteData = new Uint8Array(evt.data);
                     console.log(byteData);
 
-                    converter.appendRawData(new Uint8Array(byteData));
+                    converter.appendRawData(byteData);
                 } else {
                     console.log('no files!');
                 }
