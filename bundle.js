@@ -379,7 +379,7 @@ exports.setLogger = debug_1.setLogger;
             }
         }
     };
-   
+
 window.VideoConverter = VideoConverter;
 
 /***/ }),
@@ -582,6 +582,7 @@ var H264Parser = function () {
                         this.remuxer.readyToDecode = true;
                     }
                 }
+                push = true;
                 break;
             case NALU_1.default.PPS:
                 if (this.track.pps.length === 0) {
@@ -591,6 +592,7 @@ var H264Parser = function () {
                         this.remuxer.readyToDecode = true;
                     }
                 }
+                push = true;
                 break;
             default:
                 debug.log(" Found Unknown type NALU frame. type=" + unit.type());
