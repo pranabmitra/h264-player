@@ -3,7 +3,9 @@
   "version": "1.0.0",
   "description": "## Reference <a href=\"https://github.com/xevokk/h264-converter\">H264 Converter</a>",
   "main": "bundle.js",
-  "dependencies": {},
+  "dependencies": {
+    "ws": "^6.0.0"
+  },
   "devDependencies": {},
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
